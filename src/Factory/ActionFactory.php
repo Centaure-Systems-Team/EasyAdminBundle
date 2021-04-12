@@ -146,7 +146,15 @@ final class ActionFactory
                 $routeParameters = $routeParameters($entityInstance);
             }
 
-            return $this->adminUrlGenerator->unsetAllExcept(EA::MENU_INDEX, EA::SUBMENU_INDEX)->setRoute($routeName, $routeParameters)->generateUrl();
+            if($actionDto->getDirectLink() === true){
+
+                return $this->adminUrlGenerator->getUrlGenerator()->generate($routeName, $routeParameters);
+
+            }else{
+
+                return $this->adminUrlGenerator->unsetAllExcept(EA::MENU_INDEX, EA::SUBMENU_INDEX)->setRoute($routeName, $routeParameters)->generateUrl();
+
+            }
         }
 
         $requestParameters = [

@@ -38,6 +38,11 @@ final class AdminUrlGenerator
         $this->urlSigner = $urlSigner;
     }
 
+    public function getUrlGenerator(): UrlGeneratorInterface
+    {
+        return $this->urlGenerator;
+    }
+
     public function setDashboard(string $dashboardControllerFqcn): self
     {
         $this->setRouteParameter(EA::DASHBOARD_CONTROLLER_FQCN, $dashboardControllerFqcn);

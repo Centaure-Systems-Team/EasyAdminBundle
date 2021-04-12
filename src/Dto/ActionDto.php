@@ -3,6 +3,7 @@
 namespace EasyCorp\Bundle\EasyAdminBundle\Dto;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use phpDocumentor\Reflection\Types\Void_;
 
 /**
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
@@ -24,6 +25,7 @@ final class ActionDto
     private $url;
     private $translationParameters;
     private $displayCallable;
+    private $directLink;
 
     public function __construct()
     {
@@ -31,6 +33,7 @@ final class ActionDto
         $this->htmlAttributes = [];
         $this->routeParameters = [];
         $this->translationParameters = [];
+        $this->directLink = false;
     }
 
     public function getType(): string
@@ -164,6 +167,16 @@ final class ActionDto
     public function setRouteName(string $routeName): void
     {
         $this->routeName = $routeName;
+    }
+
+    public function getDirectLink(): bool
+    {
+        return $this->directLink;
+    }
+
+    public function setDirectLink(bool $directLink): void
+    {
+        $this->directLink =  $directLink;
     }
 
     /**
