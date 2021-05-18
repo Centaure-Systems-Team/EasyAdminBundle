@@ -274,8 +274,10 @@
                 });
             };
 
-            document.querySelector('.action-filters-button').addEventListener('click', function(event) {
-                let filterButton = event.currentTarget;
+            let filters = $('.action-filters-button');
+
+            filters.on('click', function() {
+                let filterButton = this;
                 let filterModal = document.querySelector(filterButton.dataset.modal);
                 let filterModalBody = filterModal.querySelector('.modal-body');
 
@@ -284,11 +286,19 @@
 
                 $.get(filterButton.getAttribute('href'), function (response) {
                     setInnerHTML(filterModalBody, response);
+                    flatpickr(".flatpickr",
+                        {
+                            enableTime : true,
+                            enableSeconds : true,
+                            locale : French,
+                            defaultDate : 'null',
+                            wrap : true
+                        });
                 });
-
-                event.preventDefault();
-                event.stopPropagation();
+                return false;
             });
+
+
             {% endif %}
 
 
