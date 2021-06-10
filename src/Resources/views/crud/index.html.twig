@@ -288,11 +288,14 @@
                     setInnerHTML(filterModalBody, response);
                     flatpickr(".flatpickr",
                         {
-                            enableTime : true,
-                            enableSeconds : true,
-                            locale : French,
-                            defaultDate : 'null',
-                            wrap : true
+                            enableTime: true,
+                            locale: French,
+                            defaultDate: 'null',
+                            time_24hr: true,
+                            wrap: true,
+                            altFormat: "d F Y H:i:s",
+                            dateFormat: "Y-m-d",
+                            altInput: true,
                         });
                 });
                 return false;
