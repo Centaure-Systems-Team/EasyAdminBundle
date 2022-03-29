@@ -28,7 +28,7 @@ final class ActionDto
 
     public function setDirectLink(bool $directLink): self
     {
-        $this->setDirectLink($directLink);
+        $this->directLink($directLink);
 
         return $this;
     }
