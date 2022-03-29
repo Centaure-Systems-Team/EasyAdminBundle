@@ -28,14 +28,13 @@ final class ActionDto
 
     public function setDirectLink(bool $directLink): self
     {
-        $this->directLink($directLink);
-
+        $this->directLink = $directLink;
         return $this;
     }
 
     public function getDirectLink(): bool
     {
-        return $this->getDirectLink();
+        return $this->directLink;
     }
 
     public function getType(): string
