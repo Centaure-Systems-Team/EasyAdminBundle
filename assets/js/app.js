@@ -166,6 +166,17 @@ class App {
                 .then((response) => { return response.text(); })
                 .then((text) => {
                     filterModalBody.innerHTML = text;
+                    flatpickr(".flatpickr-date",
+                        {
+                            enableTime: true,
+                            locale: French,
+                            defaultDate: 'null',
+                            time_24hr: true,
+                            wrap: true,
+                            altFormat: "d F Y H:i:s",
+                            dateFormat: "Y-m-d",
+                            altInput: true,
+                        })
                     this.#createAutoCompleteFields();
                     this.#createFilterToggles();
                 })
