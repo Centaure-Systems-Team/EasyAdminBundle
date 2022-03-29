@@ -98,6 +98,11 @@ final class AdminUrlGenerator
         return $this->routeParameters[$paramName] ?? null;
     }
 
+    public function getUrlGenerator(): UrlGeneratorInterface
+    {
+        return $this->urlGenerator;
+    }
+
     public function set(string $paramName, $paramValue): self
     {
         $this->setRouteParameter($paramName, $paramValue);

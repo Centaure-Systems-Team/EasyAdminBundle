@@ -86,6 +86,18 @@ final class Action
         return $this;
     }
 
+    public function setDirectLink(bool $directLink): self
+    {
+        $this->dto->setDirectLink($directLink);
+
+        return $this;
+    }
+
+    public function getDirectLink(): bool
+    {
+        return $this->dto->getDirectLink();
+    }
+
     /**
      * @param string|false|null $label Use FALSE to hide the label; use NULL to autogenerate it
      */

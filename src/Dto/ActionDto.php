@@ -24,6 +24,19 @@ final class ActionDto
     private $url;
     private array $translationParameters = [];
     private $displayCallable;
+    private $directLink = false;
+
+    public function setDirectLink(bool $directLink): self
+    {
+        $this->setDirectLink($directLink);
+
+        return $this;
+    }
+
+    public function getDirectLink(): bool
+    {
+        return $this->getDirectLink();
+    }
 
     public function getType(): string
     {
