@@ -4,6 +4,7 @@ require('../css/app.scss');
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle';
 import Mark from 'mark.js/src/vanilla';
 import Autocomplete from './autocomplete';
+import flatpickr from "flatpickr"
 
 // Provide Bootstrap variable globally to allow custom backend pages to use it
 window.bootstrap = bootstrap;
@@ -146,6 +147,7 @@ class App {
     }
 
     #createFilters() {
+        console.log("je passe au début")
         const filterButton = document.querySelector('.datagrid-filters .action-filters-button');
         if (null === filterButton) {
             return;
@@ -159,6 +161,7 @@ class App {
         filterButton.classList.remove('disabled');
 
         filterButton.addEventListener('click', (event) => {
+            console.log("je passe au clic")
             const filterModalBody = filterModal.querySelector('.modal-body');
             filterModalBody.innerHTML = '<div class="fa-3x px-3 py-3 text-muted text-center"><i class="fas fa-circle-notch fa-spin"></i></div>';
 
@@ -166,19 +169,9 @@ class App {
                 .then((response) => { return response.text(); })
                 .then((text) => {
                     filterModalBody.innerHTML = text;
-                    flatpickr(".flatpickr-date",
-                        {
-                            enableTime: true,
-                            locale: French,
-                            defaultDate: 'null',
-                            time_24hr: true,
-                            wrap: true,
-                            altFormat: "d F Y H:i:s",
-                            dateFormat: "Y-m-d",
-                            altInput: true,
-                        })
                     this.#createAutoCompleteFields();
                     this.#createFilterToggles();
+                    this.#createFlatpickrFields();
                 })
                 .catch((error) => { console.error(error); });
 
@@ -335,6 +328,24 @@ class App {
         const autocomplete = new Autocomplete();
         document.querySelectorAll('[data-ea-widget="ea-autocomplete"]').forEach((autocompleteElement) => {
             autocomplete.create(autocompleteElement);
+        });
+    }
+
+    #createFlatpickrFields() {
+        console.log("je créer mes fields")
+        document.querySelectorAll('.flatpickr-date').forEach((flatpickrElement) => {
+            console.log("mon field : ", flatpickrElement)
+            flatpickr(flatpickrElement,
+                {
+                    enableTime: true,
+                    locale: French,
+                    defaultDate: 'null',
+                    time_24hr: true,
+                    wrap: true,
+                    altFormat: "d F Y H:i:s",
+                    dateFormat: "Y-m-d",
+                    altInput: true,
+                })
         });
     }
 
