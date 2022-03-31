@@ -172,6 +172,7 @@ class App {
                     this.#createAutoCompleteFields();
                     this.#createFilterToggles();
                     this.#createFlatpickrFields();
+                    this.#createComparisonChangeSelect()
                 })
                 .catch((error) => { console.error(error); });
 
@@ -331,16 +332,38 @@ class App {
         });
     }
 
+    #createComparisonChangeSelect() {
+        let comparisonWidgets = document.querySelectorAll('.comparison-widget')
+
+        if (comparisonWidgets.length > 0) {
+            comparisonWidgets.forEach((comparison) => {
+                let selectComparison = comparison.querySelector(".select-comparison")
+
+                if (selectComparison !== null) {
+                    let id = selectComparison.id.split("comparison-id-")[1]
+
+                    selectComparison.addEventListener('change', function (event) {
+                        const inputId = "#date2_"+id
+                        const input = comparison.querySelector(inputId);
+                        if (input) {
+                            input.style.display = event.target.value === 'between' ? '' : 'none';
+                        }
+                    });
+                }
+            })
+        }
+    }
+
     #createFlatpickrFields() {
         document.querySelectorAll('.flatpickr-date').forEach((flatpickrElement) => {
             flatpickr(flatpickrElement,
                 {
-                    enableTime: true,
+                    enableTime: false,
                     locale: French,
                     defaultDate: 'null',
                     time_24hr: true,
                     wrap: true,
-                    altFormat: "d F Y H:i:s",
+                    altFormat: "d F Y",
                     dateFormat: "Y-m-d",
                     altInput: true,
                 })
