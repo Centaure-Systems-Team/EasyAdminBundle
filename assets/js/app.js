@@ -332,9 +332,7 @@ class App {
     }
 
     #createFlatpickrFields() {
-        console.log("je créer mes fields")
         document.querySelectorAll('.flatpickr-date').forEach((flatpickrElement) => {
-            console.log("mon field : ", flatpickrElement)
             flatpickr(flatpickrElement,
                 {
                     enableTime: true,
@@ -344,6 +342,20 @@ class App {
                     wrap: true,
                     altFormat: "d F Y H:i:s",
                     dateFormat: "Y-m-d",
+                    altInput: true,
+                })
+        });
+
+        document.querySelectorAll('.flatpickr-time-picker').forEach((flatpickrElement) => {
+            flatpickr(flatpickrElement,
+                {
+                    enableTime: true,
+                    locale: French,
+                    noCalendar : true,
+                    time_24hr: true,
+                    wrap: true,
+                    altFormat: "H:i",
+                    dateFormat: "H:i",
                     altInput: true,
                 })
         });
