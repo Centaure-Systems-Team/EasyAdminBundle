@@ -248,7 +248,7 @@ class App {
 
             rowCheckbox.addEventListener('change', () => {
                 const selectedRowCheckboxes = document.querySelectorAll('input[type="checkbox"].form-batch-checkbox:checked');
-                const row = rowCheckbox.closest('tr');
+                const row = rowCheckbox.closest('.row');
                 const content = rowCheckbox.closest('.content');
 
                 if (rowCheckbox.checked) {
@@ -262,7 +262,7 @@ class App {
                 const contentTitle = document.querySelector('.content-header-title > .title');
                 const filters = content.querySelector('.datagrid-filters');
                 const globalActions = content.querySelector('.global-actions');
-                const batchActions = content.querySelector('.batch-actions');
+                const batchActions = document.querySelectorAll('.batch-actions');
 
                 if (null !== contentTitle) {
                     contentTitle.style.visibility = rowsAreSelected ? 'hidden' : 'visible';
@@ -274,7 +274,9 @@ class App {
                     globalActions.style.display = rowsAreSelected ? 'none' : 'block';
                 }
                 if (null !== batchActions) {
-                    batchActions.style.display = rowsAreSelected ? 'block' : 'none';
+                    batchActions.forEach((batchAction) => {
+                        batchAction.style.display = rowsAreSelected ? 'block' : 'none';
+                    })
                 }
             });
         });
