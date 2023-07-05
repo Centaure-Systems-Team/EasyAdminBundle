@@ -17,6 +17,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use App\Event\<?= $entity_class_name; ?>Event;
 
 class <?= $class_name; ?> extends CentotaureCrudController
 {
@@ -24,21 +28,20 @@ class <?= $class_name; ?> extends CentotaureCrudController
     public string $className = <?= $entity_class_name; ?>::class;
     public string $labelClassName = '<?= \App\Service\Refractor::transformCamelCaseToLowerCase($entity_class_name) ?>';
 
-    private <?= $entity_class_name; ?>Repository $<?= lcfirst($entity_class_name); ?>Repository;
-    private AuthorizationCheckerInterface $authorizationChecker;
-
 
     public function __construct(
-        <?= $entity_class_name; ?>Repository $<?= lcfirst($entity_class_name); ?>Repository,
-        AuthorizationCheckerInterface $authorizationChecker,
+        private <?= $entity_class_name; ?>Repository $<?= lcfirst($entity_class_name); ?>Repository,
+        private AuthorizationCheckerInterface $authorizationChecker,
         FieldFactory $fieldFactory,
         FilterFactory $filterFactory,
         Refractor $refractor,
+        RequestStack $session,
+        TranslatorInterface $translator,
+        EventDispatcherInterface $dispatcher,
+        <?= $entity_class_name; ?>Event $event
     )
     {
-        parent::__construct($fieldFactory, $filterFactory, $refractor);
-        $this-><?= lcfirst($entity_class_name); ?>Repository = $<?= lcfirst($entity_class_name); ?>Repository;
-        $this->authorizationChecker = $authorizationChecker;
+        parent::__construct($fieldFactory, $filterFactory, $refractor, $session->getSession(), $translator, $dispatcher, $event);
     }
 
     public static function getEntityFqcn(): string
@@ -53,7 +56,7 @@ class <?= $class_name; ?> extends CentotaureCrudController
         FilterCollection $filters
     ): QueryBuilder
     {
-        $request = $this->get(EntityRepository::class)->createQueryBuilder($searchDto, $entityDto, $fields, $filters);
+        $request = $this->container->get(EntityRepository::class)->createQueryBuilder($searchDto, $entityDto, $fields, $filters);
 
         return $this-><?= lcfirst($entity_class_name); ?>Repository->createIndexQueryBuilder($request);
     }
